@@ -10,6 +10,6 @@ namespace DDD.Domain.SecretariaContext
     public class Bibliotecaria: User
     {
         public int BibliotecariaId { get; set; }
-        public List<Emprestimo> Emprestimo { get; set; }
+        //public List<Emprestimo> Emprestimo { get; set; }
     }
 }
