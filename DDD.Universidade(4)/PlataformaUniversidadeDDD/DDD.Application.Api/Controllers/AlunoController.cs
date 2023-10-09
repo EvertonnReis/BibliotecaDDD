@@ -34,9 +34,9 @@ namespace DDD.Application.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<Aluno> CreateAluno(Aluno aluno)
         {
-            if (aluno.Nome.Length < 3 || aluno.Nome.Length > 30)
+            if (aluno.Nome.Length < 3)
             {
-                return BadRequest("Nome deve ser maior que 3 e menor que 30 caracteres.");
+                return BadRequest("Nome deve ser maior que 3 caracteres.");
             }
             _alunoRepository.InsertAluno(aluno);
             return CreatedAtAction(nameof(GetById), new { id = aluno.UserId }, aluno);
@@ -51,7 +51,7 @@ namespace DDD.Application.Api.Controllers
                     return NotFound();
 
                 _alunoRepository.UpdateAluno(aluno);
-                return Ok("Cliente Atualizado com sucesso!");
+                return Ok("Aluno Atualizado com sucesso!");
             }
             catch (Exception)
             {
@@ -70,7 +70,7 @@ namespace DDD.Application.Api.Controllers
                     return NotFound();
 
                 _alunoRepository.DeleteAluno(aluno);
-                return Ok("Cliente Removido com sucesso!");
+                return Ok("Aluno Removido com sucesso!");
             }
             catch (Exception ex)
             {

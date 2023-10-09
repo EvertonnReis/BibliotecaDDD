@@ -1,5 +1,6 @@
 using DDD.Domain.SecretariaContext;
 using DDD.Infra.SQLServer.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,17 +21,25 @@ namespace DDD.Infra.SQLServer.Repositories
 
         public void DeleteEmprestimo(Emprestimo Emprestimo)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Set<Emprestimo>().Remove(Emprestimo);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public Emprestimo GetEmprestimoById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Emprestimo.Find(id);
         }
 
         public List<Emprestimo> GetEmprestimos()
         {
-            throw new NotImplementedException();
+            return _context.Emprestimo.ToList();
         }
 
         public Emprestimo InsertEmprestimo(int idAluno, int idLivro , int idBibliotecaria)
@@ -62,14 +71,18 @@ namespace DDD.Infra.SQLServer.Repositories
             return Emprestimo;
         }
 
-        public Emprestimo InsertEmprestimo(int idAluno, int idDisciplina)
-        {
-            throw new NotImplementedException();
-        }
-
         public void UpdateEmprestimo(Emprestimo Emprestimo)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Entry(Emprestimo).State = EntityState.Modified;
+                _context.SaveChanges();
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

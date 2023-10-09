@@ -23,7 +23,7 @@ namespace DDD.Application.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Aluno> GetById(int id)
+        public ActionResult<Emprestimo> GetById(int id)
         {
             return Ok(_EmprestimoRepository.GetEmprestimoById(id));
         }
@@ -37,43 +37,43 @@ namespace DDD.Application.Api.Controllers
             return CreatedAtAction(nameof(GetById), new { id = EmprestimoIdSaved.EmprestimoId }, EmprestimoIdSaved);
         }
 
-        //[HttpPut]
-        //public ActionResult Put([FromBody] Aluno aluno)
-        //{
-        //    try
-        //    {
-        //        if (aluno == null)
-        //            return NotFound();
+        [HttpPut]
+        public ActionResult Put([FromBody] Emprestimo emprestimo)
+        {
+            try
+            {
+                if (emprestimo == null)
+                    return NotFound();
 
-        //        _alunoRepository.UpdateAluno(aluno);
-        //        return Ok("Cliente Atualizado com sucesso!");
-        //    }
-        //    catch (Exception)
-        //    {
+                _EmprestimoRepository.UpdateEmprestimo(emprestimo);
+                return Ok("Emprestimo Atualizado com sucesso!");
+            }
+            catch (Exception)
+            {
 
-        //        throw;
-        //    }
-        //}
+                throw;
+            }
+        }
 
-        //// DELETE api/values/5
-        //[HttpDelete()]
-        //public ActionResult Delete([FromBody] Aluno aluno)
-        //{
-        //    try
-        //    {
-        //        if (aluno == null)
-        //            return NotFound();
+        // DELETE api/values/5
+        [HttpDelete()]
+        public ActionResult Delete([FromBody] Emprestimo emprestimo)
+        {
+            try
+            {
+                if (emprestimo == null)
+                    return NotFound();
 
-        //        _alunoRepository.DeleteAluno(aluno);
-        //        return Ok("Cliente Removido com sucesso!");
-        //    }
-        //    catch (Exception ex)
-        //    {
+                _EmprestimoRepository.UpdateEmprestimo(emprestimo);
+                return Ok("Empréstimo Excluído com sucesso!");
+            }
+            catch (Exception ex)
+            {
 
-        //        throw ex;
-        //    }
+                throw ex;
+            }
 
-        //}
+        }
 
     }
 }

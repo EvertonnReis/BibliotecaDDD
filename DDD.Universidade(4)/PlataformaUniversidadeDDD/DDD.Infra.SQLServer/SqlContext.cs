@@ -1,4 +1,3 @@
-using DDD.Domain.PicContext;
 using DDD.Domain.SecretariaContext;
 using DDD.Domain.UserManagementContext;
 using Microsoft.EntityFrameworkCore;
@@ -18,15 +17,6 @@ namespace DDD.Infra.SQLServer
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Matricula>().HasKey(m => new { m.AlunoId, m.DisciplinaId });
-            //modelBuilder.Entity<Aluno>()
-            //    .HasMany(e => e.Livro)
-            //    .WithMany(e => e.Alunos)
-            //    .UsingEntity<Emprestimo>();
-
-            //modelBuilder.Entity<Emprestimo>()
-            //            .HasMany(e => e.Alunos)
-            //            .WithMany();
 
             modelBuilder.Entity<Emprestimo>()
                         .HasOne(e => e.Aluno)
@@ -40,7 +30,6 @@ namespace DDD.Infra.SQLServer
             modelBuilder.Entity<Aluno>().ToTable("Alunos");
             modelBuilder.Entity<Livro>().ToTable("Livros");
             modelBuilder.Entity<Bibliotecaria>().ToTable("Bibliotecarias");
-            //modelBuilder.Entity<Pesquisador>().ToTable("Pesquisador");
             //https://learn.microsoft.com/pt-br/ef/core/modeling/inheritance
         }
 
@@ -49,7 +38,5 @@ namespace DDD.Infra.SQLServer
         public DbSet<Bibliotecaria> Bibliotecaria { get; set; }
         public DbSet<Emprestimo> Emprestimo { get; set; }
         public DbSet<User> User { get; set; }
-        //public DbSet<Pesquisador> Pesquisadores { get; set; }
-        //public DbSet<Projeto> Projetos { get; set; }
     }
 }

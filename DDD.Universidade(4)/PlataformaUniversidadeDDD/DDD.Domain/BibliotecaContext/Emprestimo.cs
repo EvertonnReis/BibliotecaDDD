@@ -19,7 +19,7 @@ namespace DDD.Domain.SecretariaContext
         public Bibliotecaria Bibliotecaria { get; set; }
 
         public DateTime Data { get; set; }
-        public ICollection<Aluno> Alunos { get; set; }
+        //public ICollection<Aluno> Alunos { get; set; }
 
     }
 }

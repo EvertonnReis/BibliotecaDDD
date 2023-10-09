@@ -34,9 +34,9 @@ namespace DDD.Application.Api.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult<Bibliotecaria> CreateBibliotecaria(Bibliotecaria Bibliotecaria)
         {
-            if (Bibliotecaria.Nome.Length < 3 || Bibliotecaria.Nome.Length > 30)
+            if (Bibliotecaria.Nome.Length < 3)
             {
-                return BadRequest("Nome deve ser maior que 3 e menor que 30 caracteres.");
+                return BadRequest("Nome deve ser maior que 3 caracteres.");
             }
             _BibliotecariaRepository.InsertBibliotecaria(Bibliotecaria);
             return CreatedAtAction(nameof(GetById), new { id = Bibliotecaria.UserId }, Bibliotecaria);
@@ -51,7 +51,7 @@ namespace DDD.Application.Api.Controllers
                     return NotFound();
 
                 _BibliotecariaRepository.UpdateBibliotecaria(Bibliotecaria);
-                return Ok("Cliente Atualizado com sucesso!");
+                return Ok("Bibliotecaria Atualizada com sucesso!");
             }
             catch (Exception)
             {
