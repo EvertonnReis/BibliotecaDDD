@@ -11,8 +11,8 @@ namespace DDD.Domain.SecretariaContext
 {
     public class Aluno : User
     {
-        public int AlunoId { get; set; }
-        //public List<Livro>? Livros { get; set; }
+        //public int AlunoId { get; set; }
+        public List<Livro>? Livros { get; set; }
         //public IList<Matricula>? Matriculas { get; set; }
     }
 }

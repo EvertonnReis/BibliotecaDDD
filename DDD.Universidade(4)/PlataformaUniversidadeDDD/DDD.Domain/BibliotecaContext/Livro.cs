@@ -14,7 +14,7 @@ namespace DDD.Domain.SecretariaContext
         public string Autor { get; set; }
         public bool Emprestado { get; set; }
         //public IList<Matricula>? Matriculas { get; set; }
-        //public IList<Aluno>? Alunos { get; set; }
+        public IList<Aluno>? Alunos { get; set; }
 
     }
 }

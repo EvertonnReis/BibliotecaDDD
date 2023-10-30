@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DDD.Infra.SQLServer.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20231004195757_teste")]
+    [Migration("20231030161100_teste")]
     partial class teste
     {
         /// <inheritdoc />
@@ -55,7 +55,7 @@ namespace DDD.Infra.SQLServer.Migrations
 
                     b.HasIndex("LivroId");
 
-                    b.ToTable("Emprestimo");
+                    b.ToTable("Emprestimos", (string)null);
                 });
 
             modelBuilder.Entity("DDD.Domain.SecretariaContext.Livro", b =>
@@ -128,23 +128,12 @@ namespace DDD.Infra.SQLServer.Migrations
                 {
                     b.HasBaseType("DDD.Domain.UserManagementContext.User");
 
-                    b.Property<int>("AlunoId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("EmprestimoId")
-                        .HasColumnType("int");
-
-                    b.HasIndex("EmprestimoId");
-
                     b.ToTable("Alunos", (string)null);
                 });
 
             modelBuilder.Entity("DDD.Domain.SecretariaContext.Bibliotecaria", b =>
                 {
                     b.HasBaseType("DDD.Domain.UserManagementContext.User");
-
-                    b.Property<int>("BibliotecariaId")
-                        .HasColumnType("int");
 
                     b.ToTable("Bibliotecarias", (string)null);
                 });
@@ -154,7 +143,7 @@ namespace DDD.Infra.SQLServer.Migrations
                     b.HasOne("DDD.Domain.SecretariaContext.Aluno", "Aluno")
                         .WithMany()
                         .HasForeignKey("AlunoId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("DDD.Domain.SecretariaContext.Bibliotecaria", "Bibliotecaria")
@@ -174,18 +163,6 @@ namespace DDD.Infra.SQLServer.Migrations
                     b.Navigation("Bibliotecaria");
 
                     b.Navigation("Livro");
-                });
-
-            modelBuilder.Entity("DDD.Domain.SecretariaContext.Aluno", b =>
-                {
-                    b.HasOne("DDD.Domain.SecretariaContext.Emprestimo", null)
-                        .WithMany("Alunos")
-                        .HasForeignKey("EmprestimoId");
-                });
-
-            modelBuilder.Entity("DDD.Domain.SecretariaContext.Emprestimo", b =>
-                {
-                    b.Navigation("Alunos");
                 });
 
             modelBuilder.Entity("DDD.Domain.SecretariaContext.Bibliotecaria", b =>

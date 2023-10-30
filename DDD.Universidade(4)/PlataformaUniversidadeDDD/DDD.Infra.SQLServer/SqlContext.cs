@@ -18,11 +18,10 @@ namespace DDD.Infra.SQLServer
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
-            modelBuilder.Entity<Emprestimo>()
-                        .HasOne(e => e.Aluno)
-                        .WithMany()
-                        .HasForeignKey(e => e.AlunoId)
-                        .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Aluno>()
+                        .HasMany(e => e.Livros)
+                        .WithMany(x => x.Alunos)
+                        .UsingEntity<Emprestimo>();
 
             base.OnModelCreating(modelBuilder);
 
@@ -30,6 +29,7 @@ namespace DDD.Infra.SQLServer
             modelBuilder.Entity<Aluno>().ToTable("Alunos");
             modelBuilder.Entity<Livro>().ToTable("Livros");
             modelBuilder.Entity<Bibliotecaria>().ToTable("Bibliotecarias");
+            modelBuilder.Entity<Emprestimo>().ToTable("Emprestimos");
             //https://learn.microsoft.com/pt-br/ef/core/modeling/inheritance
         }
 

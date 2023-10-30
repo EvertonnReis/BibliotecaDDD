@@ -46,7 +46,7 @@ namespace DDD.Infra.SQLServer.Repositories
         {
             var aluno = _context.Aluno.First(i => i.UserId == idAluno);
             var livro = _context.Livro.First(i => i.LivroId == idLivro);
-            var bibliotecaria = _context.Bibliotecaria.First(i => i.BibliotecariaId == idBibliotecaria);
+            var bibliotecaria = _context.Bibliotecaria.First(i => i.UserId == idBibliotecaria);
 
             var Emprestimo = new Emprestimo
             {

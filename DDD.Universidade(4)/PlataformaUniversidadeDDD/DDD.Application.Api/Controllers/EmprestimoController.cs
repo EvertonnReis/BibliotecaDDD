@@ -65,7 +65,7 @@ namespace DDD.Application.Api.Controllers
                     return NotFound();
 
                 _EmprestimoRepository.UpdateEmprestimo(emprestimo);
-                return Ok("Empréstimo Excluído com sucesso!");
+                return Ok("Emprï¿½stimo Excluï¿½do com sucesso!");
             }
             catch (Exception ex)
             {

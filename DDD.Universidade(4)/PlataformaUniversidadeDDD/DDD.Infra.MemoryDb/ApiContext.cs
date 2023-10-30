@@ -13,6 +13,7 @@ namespace DDD.Infra.MemoryDb
         public DbSet<Aluno> Alunos { get; set; }
         public DbSet<Livro> Livros { get; set; }
         public DbSet<Emprestimo> Emprestimos { get; set; }
+        public DbSet<Bibliotecaria> Bibliotecarias { get; set; }
 
     }
 }

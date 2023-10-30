@@ -15,6 +15,24 @@ namespace DDD.Infra.SQLServer.Migrations
                 name: "UserSequence");
 
             migrationBuilder.CreateTable(
+                name: "Alunos",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEXT VALUE FOR [UserSequence]"),
+                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Sobrenome = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Login = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Senha = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Ativo = table.Column<bool>(type: "bit", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Alunos", x => x.UserId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Bibliotecarias",
                 columns: table => new
                 {
@@ -25,8 +43,7 @@ namespace DDD.Infra.SQLServer.Migrations
                     Login = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Senha = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Ativo = table.Column<bool>(type: "bit", nullable: false),
-                    BibliotecariaId = table.Column<int>(type: "int", nullable: false)
+                    Ativo = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -49,27 +66,7 @@ namespace DDD.Infra.SQLServer.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Alunos",
-                columns: table => new
-                {
-                    UserId = table.Column<int>(type: "int", nullable: false, defaultValueSql: "NEXT VALUE FOR [UserSequence]"),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Sobrenome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Login = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Senha = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DataCadastro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Ativo = table.Column<bool>(type: "bit", nullable: false),
-                    AlunoId = table.Column<int>(type: "int", nullable: false),
-                    EmprestimoId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Alunos", x => x.UserId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Emprestimo",
+                name: "Emprestimos",
                 columns: table => new
                 {
                     EmprestimoId = table.Column<int>(type: "int", nullable: false)
@@ -81,21 +78,21 @@ namespace DDD.Infra.SQLServer.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Emprestimo", x => x.EmprestimoId);
+                    table.PrimaryKey("PK_Emprestimos", x => x.EmprestimoId);
                     table.ForeignKey(
-                        name: "FK_Emprestimo_Alunos_AlunoId",
+                        name: "FK_Emprestimos_Alunos_AlunoId",
                         column: x => x.AlunoId,
                         principalTable: "Alunos",
                         principalColumn: "UserId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Emprestimo_Bibliotecarias_BibliotecariaId",
+                        name: "FK_Emprestimos_Bibliotecarias_BibliotecariaId",
                         column: x => x.BibliotecariaId,
                         principalTable: "Bibliotecarias",
                         principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Emprestimo_Livros_LivroId",
+                        name: "FK_Emprestimos_Livros_LivroId",
                         column: x => x.LivroId,
                         principalTable: "Livros",
                         principalColumn: "LivroId",
@@ -103,42 +100,26 @@ namespace DDD.Infra.SQLServer.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Alunos_EmprestimoId",
-                table: "Alunos",
-                column: "EmprestimoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Emprestimo_AlunoId",
-                table: "Emprestimo",
+                name: "IX_Emprestimos_AlunoId",
+                table: "Emprestimos",
                 column: "AlunoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Emprestimo_BibliotecariaId",
-                table: "Emprestimo",
+                name: "IX_Emprestimos_BibliotecariaId",
+                table: "Emprestimos",
                 column: "BibliotecariaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Emprestimo_LivroId",
-                table: "Emprestimo",
+                name: "IX_Emprestimos_LivroId",
+                table: "Emprestimos",
                 column: "LivroId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Alunos_Emprestimo_EmprestimoId",
-                table: "Alunos",
-                column: "EmprestimoId",
-                principalTable: "Emprestimo",
-                principalColumn: "EmprestimoId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Alunos_Emprestimo_EmprestimoId",
-                table: "Alunos");
-
             migrationBuilder.DropTable(
-                name: "Emprestimo");
+                name: "Emprestimos");
 
             migrationBuilder.DropTable(
                 name: "Alunos");
