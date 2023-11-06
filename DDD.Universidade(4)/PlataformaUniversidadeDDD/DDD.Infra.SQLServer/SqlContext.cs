@@ -15,7 +15,13 @@ namespace DDD.Infra.SQLServer
             optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=BibliotecaDB");
         }
 
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+
+        public SqlContext(DbContextOptions<SqlContext> options) : base(options)
+        {
+
+        }
+
+            protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
             modelBuilder.Entity<Aluno>()

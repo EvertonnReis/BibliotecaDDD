@@ -1,6 +1,7 @@
 using DDD.Infra.SQLServer;
 using DDD.Infra.SQLServer.Interfaces;
 using DDD.Infra.SQLServer.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,19 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContext<SqlContext>(options =>
+{
+    options.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=BibliotecaDB", sqlServerOptionsAction: sqlOptions =>
+    {
+        sqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,     // Número máximo de tentativas de conexão
+            maxRetryDelay: TimeSpan.FromSeconds(30), // Tempo máximo entre as tentativas
+            errorNumbersToAdd: null // Adicione números de erro personalizados, se necessário
+        );
+    });
+});
+
 
 var app = builder.Build();
 
