@@ -16,8 +16,12 @@ builder.Services.AddScoped<IEmprestimoRepository, EmprestimoRepositorySqlServer>
 builder.Services.AddScoped<IBibliotecariaRepository,  BibliotecariaRepositorySqlServer>();
 builder.Services.AddScoped<SqlContext, SqlContext>();
 
-builder.Services.AddControllers().AddJsonOptions(x =>
-   x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+
+//Lógica do ternário, comentar para funcionar corretamente
+
+//builder.Services.AddControllers().AddJsonOptions(x =>
+//   x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -47,6 +51,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(options =>
+{
+    options.AllowAnyOrigin();
+    options.AllowAnyMethod();
+    options.AllowAnyHeader();
+});
 
 app.UseAuthorization();
 
