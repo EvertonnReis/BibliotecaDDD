@@ -16,14 +16,23 @@ builder.Services.AddScoped<IEmprestimoRepository, EmprestimoRepositorySqlServer>
 builder.Services.AddScoped<IBibliotecariaRepository,  BibliotecariaRepositorySqlServer>();
 builder.Services.AddScoped<SqlContext, SqlContext>();
 
+
 //builder.Services.AddControllers().AddJsonOptions(x =>
 //   x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
 // ativar  quando for fazer a inserção no ternário
+
+//Lógica do ternário, comentar para funcionar corretamente
+
+//builder.Services.AddControllers().AddJsonOptions(x =>
+//   x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve);
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// BANCO DE DADOS LOCAL SQLSERVER
 
 builder.Services.AddDbContext<SqlContext>(options =>
 {
@@ -36,6 +45,22 @@ builder.Services.AddDbContext<SqlContext>(options =>
         );
     });
 });
+
+// BANCO DE DADOS ONLINE MYSQL
+
+//builder.Services.AddDbContext<SqlContext>(options =>
+//{
+//    options.UseMySql("Server=db4free.net;Port=3306;Database=navarroonline;User=everton;Password=abcd*123", mySqlOptionsAction: mySqlOptions =>
+//    {
+//        mySqlOptions.EnableRetryOnFailure(
+//            maxRetryCount: 5,     // Número máximo de tentativas de conexão
+//            maxRetryDelay: TimeSpan.FromSeconds(30), // Tempo máximo entre as tentativas
+//            errorNumbersToAdd: null // Adicione números de erro personalizados, se necessário
+//        );
+//    },
+//    serverVersion: new MySqlServerVersion(new Version(8, 0, 22))); // Substitua pela versão real do seu MySQL
+//});
+
 
 
 var app = builder.Build();
@@ -55,6 +80,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(options =>
+{
+    options.AllowAnyOrigin();
+    options.AllowAnyMethod();
+    options.AllowAnyHeader();
+});
 
 app.UseAuthorization();
 

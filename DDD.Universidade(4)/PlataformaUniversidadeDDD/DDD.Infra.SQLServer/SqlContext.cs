@@ -12,7 +12,10 @@ namespace DDD.Infra.SQLServer
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            //BANCO DE DADOS LOCAL SQLSERVER
             optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=BibliotecaDB");
+            //BANCO DE DADOS ONLINE MYSQL
+            //optionsBuilder.UseMySql("Server=db4free.net;Port=3306;Database=navarroonline;User=everton;Password=abcd*123", new MySqlServerVersion(new Version(8, 0, 22)));
         }
 
 

@@ -54,8 +54,8 @@ namespace DDD.Infra.SQLServer.Repositories
             }
             catch (Exception ex)
             {
-                //log exception
-
+                Console.WriteLine($"Erro ao inserir aluno: {ex.Message}");
+                Console.WriteLine($"StackTrace: {ex.StackTrace}");
             }
         }
 
