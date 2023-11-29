@@ -19,11 +19,11 @@ namespace DDD.Infra.SQLServer.Repositories
         }
 
 
-        public void DeleteLivro(Livro disciplina)
+        public void DeleteLivro(Livro livro)
         {
             try
             {
-                _context.Set<Livro>().Remove(disciplina);
+                _context.Set<Livro>().Remove(livro);
                 _context.SaveChanges();
             }
             catch (Exception ex)
@@ -43,11 +43,11 @@ namespace DDD.Infra.SQLServer.Repositories
             return _context.Livro.Find(id);
         }
 
-        public void InsertLivro(Livro disciplina)
+        public void InsertLivro(Livro livro)
         {
             try
             {
-                _context.Livro.Add(disciplina);
+                _context.Livro.Add(livro);
                 _context.SaveChanges();
             }
             catch (Exception ex)
@@ -57,11 +57,11 @@ namespace DDD.Infra.SQLServer.Repositories
             }
         }
 
-        public void UpdateLivro(Livro disciplina)
+        public void UpdateLivro(Livro livro)
         {
             try
             {
-                _context.Entry(disciplina).State = EntityState.Modified;
+                _context.Entry(livro).State = EntityState.Modified;
                 _context.SaveChanges();
 
             }
