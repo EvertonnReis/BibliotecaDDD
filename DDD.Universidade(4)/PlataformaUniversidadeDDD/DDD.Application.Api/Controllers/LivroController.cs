@@ -32,7 +32,7 @@ namespace DDD.Application.Api.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult<Aluno> CreateLivro(Livro Livro)
+        public ActionResult<Livro> CreateLivro(Livro Livro)
         {
             _LivroRepository.InsertLivro(Livro);
             return CreatedAtAction(nameof(GetById), new { id = Livro.LivroId }, Livro);
